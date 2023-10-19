@@ -1,0 +1,1895 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "collapsed_sections": [
+        "IQjW1pdZjY9B",
+        "bWufcxqOtu-k"
+      ],
+      "toc_visible": true,
+      "authorship_tag": "ABX9TyMMz2pDP2GkyzhXgRLKYYBN",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/GerardRagbir/Python-Notebooks/blob/main/CTS_Python\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!sudo apt-get update -y &> /dev/null\n",
+        "!sudo apt-get install python3.11 &> /dev/null\n",
+        "\n",
+        "!sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1 &> /dev/null\n",
+        "!sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2 &> /dev/null\n",
+        "\n",
+        "!sudo apt-get install python3-pip &> /dev/null\n",
+        "\n",
+        "!python --version"
+      ],
+      "metadata": {
+        "id": "00xDthhHfR03"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "#<b> Getting Started </b>\n",
+        "This document is a Jupyter Notebook <i>(denoted by the file extension <u><b>.ipynb</u></b>)</i> and can be either used on [Google's Colab](https://colab.research.google.com) or within your own computer's IDE.\n",
+        "\n",
+        "If you aren't using a Jupyter-capable editor, feel free to use any of the recommended Integrated Development Environment (IDEs) but be sure to save your files as <u><b>.py</u></b> instead.\n",
+        "\n",
+        "\n",
+        "Note that we'll be working with [Python 3.11](https://www.python.org), but any version above 3.7 should be fine.\n"
+      ],
+      "metadata": {
+        "id": "_pcDUwe6XxrM"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Recommended IDEs\n",
+        "- [VSCode](https://code.visualstudio.com)\n",
+        "- [Jetbrains PyCharm Community](https://www.jetbrains.com/pycharm/)\n",
+        "- [Jetbrains Dataspell](https://www.jetbrains.com/dataspell/)\n",
+        "- [Vim](https://www.vim.org/download.php)\n",
+        "\n",
+        "However, this entire course can be done on Colab as long as your have a good internet connection!"
+      ],
+      "metadata": {
+        "id": "7DpXC6ghKR17"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Getting Help\n",
+        "\n",
+        "If you ever get stuck during an exercise, your first thought should be trying to solve the problem on your own. Feel free to use any resource available to you - research the problem using resources such as:\n",
+        "- [StackOverflow](https://www.stackoverflow.com) | [BONUS LINK](https://stackoverflow.blog/2021/07/14/getting-started-with-python/)\n",
+        "- [Python's Official Documentation](https://docs.python.org/3/): this one may seem overwhelming to the average beginner\n",
+        "- [Google](https://www.google.com) | [BONUS LINK ](https://codeahoy.com/2016/04/30/do-experienced-programmers-use-google-frequently/)\n",
+        "\n",
+        "If that fails, one of the most valuable assets of programming is COMMUNITY! Ask question on forums, ask other programmers or even your own classmates for help.\n",
+        "\n",
+        "\n",
+        "<b>GOOD LUCK. - GR</b>\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "A-u9AMpFKzhT"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Formatting\n",
+        "\n",
+        "Python is unlike many other programming languages for a number of reasons. Most noticeably is that it does not require an endline character `eg. ;`\n",
+        "Because of this, it depends on some strict formatting rules which are defined in its [PEP-8 Style Guide](https://peps.python.org/pep-0008/).\n",
+        "\n",
+        "Don't worry about memorizing these, they become second nature with experience. And by using any of the recommended IDEs, you'll find that it handles the formatting for you. Still it is a minor albeit relevant bit of information for you to know as you grow to an advanced level programmer."
+      ],
+      "metadata": {
+        "id": "pFWQtVnA5hWH"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Glossary\n",
+        "\n",
+        "* <b>Interpreter:</b>\n",
+        "> Python uses a means of execution by running through each line of code and executing them all on the fly. If it finds an error on one particular line, it will show a message about the type of error and approximately where it occured.\n",
+        "\n",
+        "* <b>Variables:</b>\n",
+        "> A place in computer memory with an assigned name. This notebook has a larger section dedicated to just a handful of variable types. Some words in Python cannot be used to create a variable since these may be reserved for some other purpose by the language. All variable names are case sensitive, and cannot start with a digit. There are two types of variables: global and local, however we won't really be concerned with those in this notebook. Check out [this article](https://learnpython.com/blog/getting-started-with-python-data-types/) if you want to learn more about variables.\n",
+        "\n",
+        "* <b>Functions:</b>\n",
+        "> Sometimes we end up writing the exact same code a number of times. This is considered not ideal, and falls in line with the [DRY principle](https://thevaluable.dev/dry-principle-cost-benefit-example/): <u>D</u>on't <u>R</u>epeat <u>Y</u>ourself. Functions essentially help us reuse the same set of code to repeatedly accomplish an action, and are important to help divide complex code blocks into simpler or smaller parts. Python also has many useful built in functions. Later in the notebook, there's a section on using and creating your own functions.\n",
+        "\n",
+        "* <b>Classes:</b>\n",
+        "> Classes are user-defined blueprints which allow us to create an object. We'll tackle this later on, but think about how many different species of cats exists, yet they are all cats nonetheless. Cats in this case is the class.\n",
+        "\n",
+        "* <b>Modules:</b>\n",
+        "> Modules are external files which contain Python code that we may want to use. Sometimes we may create our own bits of code and find another use for them later on, or share different python files with a team to help better organize a project. Or we may find that someone else has done some fantastic work elsewhere and has shared their code with us. These are all instances where we'd need to access or use modules. In other languages, they may be referred to as libraries or packages.\n",
+        "\n",
+        "> To import a module, we may use:\n",
+        "```\n",
+        "import module_name\n",
+        "```\n",
+        "\n",
+        "> Or if a bunch of modules are packaged together into a bundle, you might see:\n",
+        "```\n",
+        "from bundle import module_name\n",
+        "```\n",
+        "\n",
+        "> To find a list of modules, most of the world uses an index service called [PyPi](https://pypi.org). Some of the most popular packages are:\n",
+        "\n",
+        "\n",
+        "> 1.   [numpy](https://numpy.org): a package to simplfy advanced mathematical tasks\n",
+        "> 2.   [pandas](https://pandas.pydata.org): a data analysis library\n",
+        "> 3.   [tensorflow](https://www.tensorflow.org): a machine learning platform created by Google\n",
+        "> 4.   [matplotlib](https://matplotlib.org): a comprehensive data visualization library\n",
+        "> 5.   [fastapi](https://fastapi.tiangolo.com): a high performance web framework for building APIs\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "FI4p0S1XCAbF"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os # built in module from python to interface with the operating system\n",
+        "from multiprocessing import Process, Pool # import the Process & Pool modules from within the multiprocessing package\n",
+        "import numpy as np # imports numpy package and gives it an alias"
+      ],
+      "metadata": {
+        "id": "BRjYUYew86nm"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "While many modules are included with your default python installation, the ones described on PyPi (or [Anaconda Python](https://www.anaconda.com/products/distribution) if you're more advanced), will require you to use your terminal to install the packages. Since this notebook is hosted on Colab, we'll focus on that."
+      ],
+      "metadata": {
+        "id": "-G4hBrwbBTAs"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "! pip install numpy"
+      ],
+      "metadata": {
+        "id": "Nx0rWsS8CyXS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Comments\n",
+        "\n",
+        "Anything you type into the editor and within the body of the python file will be executed. Sometimes you may want to not have something run as code, whether because it's incomplete, problematic, or just some random thought you had that isn't really any kind of code.\n",
+        "\n",
+        "These are referred to as comments and are denoted by the # symbol at the beginning of a string of text.\n",
+        "\n",
+        "```\n",
+        "# This is a comment\n",
+        "\n",
+        "some_variable      # Everything after the hash symbol is a comment\n",
+        "```\n",
+        "\n",
+        "Sometimes however, you might want to have entire explanations or prolonged multiline comments. These are called <b>DOCSTRINGS</b>. A docstring is essentially the same as a comment but surrounded by triple-quotations. Anything within the triple-quotations (remember, it surrounds the statement, so you'll find them at the beginning AND at the end).\n",
+        "\n",
+        "```\n",
+        "'''\n",
+        "This block of code does something when the time remaining is less than 1 hour\n",
+        "but does something else when the time is between 1 hour but less than 1 day.\n",
+        "To change this behaviour, do something.\n",
+        "'''\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "oY_aYdjJew_7"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# This is a comment\n",
+        "\n",
+        "\"\"\"\n",
+        "this is a docstring and none of these do anything!\n",
+        "\"\"\""
+      ],
+      "metadata": {
+        "id": "WPbuydGehGM4"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Printing to the console\n",
+        "\n",
+        "The Python interpreter uses something called a console to give feedback if anything is sent to it. During debugging, we often use this to test variations of our code to see if they behave as we want them to.\n",
+        "\n",
+        "To print something to the console, use `print()` where the area between the rounded brackets contain some string of text, a variable or a collection of those. Don't worry if that last sentence confused you, we'll learn about them in the next section."
+      ],
+      "metadata": {
+        "id": "4wB6fUCdhS3k"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"Hello World!\")"
+      ],
+      "metadata": {
+        "id": "mJVMe3eshagr"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Combining things to print\n",
+        "\n",
+        "age = 21\n",
+        "name = \"Matthew\"\n",
+        "\n",
+        "print(f\"Hello {name}\") # Using f-strings ### MOST RECOMMENDED WAY\n",
+        "\n",
+        "# OR\n",
+        "\n",
+        "print(\"{} is {} years old!\".format(name, age)) # using the Variable-Format method\n",
+        "\n",
+        "# OR\n",
+        "\n",
+        "print(name + \" is \" + str(age) + \" years old!\") # String concatenation but very inefficient and prone to errors!"
+      ],
+      "metadata": {
+        "id": "6zU98orrx4bV"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Variables\n",
+        "\n",
+        "Variables are a way of storing information, often times of a specific type, into memory. We will be looking at some of the more common types used in Python, in fact these you might find in many other languages as well: Strings, Integers, Floating Point, Booleans, and a bit later on we'll talk about collections.\n",
+        "\n",
+        "\n",
+        "One of the key words you may come across is `object` which is how Python handles almost everything. Don't worry if it seems confusing right now - it usually is until you see the full picture and implement your own."
+      ],
+      "metadata": {
+        "id": "IQjW1pdZjY9B"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Strings\n",
+        "\n",
+        "Strings are capable of storing any [Unicode](https://home.unicode.org/basic-info/overview/) character.\n",
+        "\n",
+        "Unicode characters can be any alphanumeric or special character, even emojis:\n",
+        " - A - Z\n",
+        " - a - z\n",
+        " - 0 - 9\n",
+        " - ~`!@#$%^&*()_-+=|\\][{}\n",
+        " - 🙋🏻‍♂️👀🤖\n",
+        "\n",
+        "To declare a String, create a named variable and set it equal to some unicode-based value, keeping in mind to surround it with inverted commas (single or double are fine, just be consistent!)\n",
+        "\n",
+        "`variable_string = 'value'`  or  `variable_string = \"value\"\n",
+        "`\n",
+        "\n",
+        "Let's look at an example below:\n",
+        "```\n",
+        "first_name = \"Timothy\"\n",
+        "room_number = \"102\"\n",
+        "fav_emoji = '😄'\n",
+        "```\n",
+        "\n",
+        "Something to keep in mind is that even though we may consider two characters (eg. A and a) to be equivalent in value or meaning, their Unicode values are not necessary the same.\n",
+        "\n",
+        "`A is not the same value as a`"
+      ],
+      "metadata": {
+        "id": "CEtLEGLnk0Og"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Integers\n",
+        "\n",
+        "Integers are whole number variables (either positive or negative). You do not need inverted commas around the integer values, since using those turns it into a String.\n",
+        "\n",
+        "The following format works fine:\n",
+        "\n",
+        "`variable_int = value`\n",
+        "\n",
+        "Below are some examples:\n",
+        "\n",
+        "```\n",
+        "age = 21\n",
+        "books_read = 0\n",
+        "temp_farenheit = -12\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "jY5r07CdmFmp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Floating Point\n",
+        "\n",
+        "Float (or Floating Point) are variables with a decimal in place.\n",
+        "\n",
+        "The format for declaring a float is similar to integers except the values will have a decimal in place.\n",
+        "\n",
+        "`value_fp = whole_number.fractional_value`\n",
+        "\n",
+        "Some examples are:\n",
+        "```\n",
+        "total_cost = 135.25\n",
+        "lightYears_moonToEarth = 4.063e−11\n",
+        "```\n",
+        "\n",
+        "Similarly to Strings, even though a whole number decimal value may technically have the same value as its integer value,\n",
+        "`eg 12 and 12.00`, in science and engineering fields, we do not equate them due to discrepancies in precision.\n",
+        "\n",
+        "`12.00 may have an actual value of 11.9999999 or 12.0000001` especially when minor differences in processing technologies are considered!\n",
+        "\n",
+        "If you want to learn more about the technical limitations and features of using FP, [check out the official documentation.](https://docs.python.org/3/tutorial/floatingpoint.html)"
+      ],
+      "metadata": {
+        "id": "pE3inM8Rnynt"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "## Boolean\n",
+        "\n",
+        "Booleans (or just bool) is a conditional type variable which can be either logically True or False.\n",
+        "\n",
+        "Similar to the previous variables, you can declare a boolean in the following way:\n",
+        "`value_bool = True` or `value_bool = False`\n",
+        "\n",
+        "Some examples include:\n",
+        "```\n",
+        "is_married = False\n",
+        "item_purchased = True\n",
+        "```\n",
+        "\n",
+        "Note that some values can be evaluated using booleans, as you will see later on."
+      ],
+      "metadata": {
+        "id": "X1xmnBFFr4Bp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "## Collections\n",
+        "\n",
+        "Arrays are collections of values, either homogenous or not.  However, since this is more complex, we won't get into them until later in the notebook."
+      ],
+      "metadata": {
+        "id": "dpJbMel2s2Hp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Extra Reading\n",
+        "There are so many more variables. A variable is really just an object which is capable of storing some kind of data according to its [class](https://www.geeksforgeeks.org/python-classes-and-objects/). This falls into a field called [Data Structures](https://www.geeksforgeeks.org/data-structures/) which is far out of the scope of this notebook.\n",
+        "\n",
+        "Some other variable types include:\n",
+        "- [complex](https://www.programiz.com/python-programming/methods/built-in/complex)\n",
+        "- bytes\n",
+        "- None"
+      ],
+      "metadata": {
+        "id": "tnWtXsc9tG1b"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Exercise\n",
+        "\n",
+        "Let's create some variables for an imaginary person using all of the types we discussed\n",
+        "\n",
+        "\n",
+        "```\n",
+        "name = 'Timothy'\n",
+        "address = \"Main Street\"\n",
+        "age = 21\n",
+        "cash_in_wallet = 52.75\n",
+        "is_a_student = True\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "bWufcxqOtu-k"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create your person here"
+      ],
+      "metadata": {
+        "id": "xVsYCebcthlk"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Print out the data stored in this variable to the console."
+      ],
+      "metadata": {
+        "id": "RbshrwzlinBZ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Print the Type of variable to the console."
+      ],
+      "metadata": {
+        "id": "-H6OHAZtirfn"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# BONUS: Create some variables of your own and experiment with different types. Try printing the contents of the variable and the type below."
+      ],
+      "metadata": {
+        "id": "_DO0Yxn8Bofg"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Working with Variables\n",
+        "\n",
+        "Each variable can be manipilated using a number of operations. We'll discuss using arithmetic operators in this section.\n"
+      ],
+      "metadata": {
+        "id": "YPqMvY2CY7NI"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Casting\n",
+        "\n",
+        "You've seen that we can have a String value of \"11\" and an Integer value of 11. We also have a Float value of 11.00. Some values may be necessary to keep as one data type, but in a single moment you may need to do some other operation but due to the datatype not being accepted will result in an error.\n",
+        "\n",
+        "For example, you may store the POSTAL CODE as a STRING because the entire ADDRESS is stored as a String, but in a situation where ODD-number POSTAL CODES are on one side of the street and even numbers are on the opposite side, Strings don't exactly offer numerical capabilities.\n",
+        "\n",
+        "This is where castings come into play. We can convert between datatypes (not always) using any of the following syntax:\n",
+        "```\n",
+        "int() - convert to an integer\n",
+        "float() - convert to a float\n",
+        "str() - convert to a string\n",
+        "bool() - convert to boolean\n",
+        "complex() - convert to a complex number\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "EhOUAKMU4LvD"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pi = 3.142\n",
+        "print(type(pi))\n",
+        "\n",
+        "# can we convert pi to an integer?\n",
+        "print(int(pi) + \" is of type \" + type(int(pi))) ## WHAT HAPPENED?"
+      ],
+      "metadata": {
+        "id": "TLZq6vB85cp9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Arithmetic\n",
+        "\n",
+        "To add (or subtract) any numerical variables, use the `+` (or `-`) as if it were regular math. Depending on the variable's type, you may get some surprising results.\n",
+        "\n",
+        "There is a special case where you can add strings together - this is a process known as [concatenation](https://www.digitalocean.com/community/tutorials/python-string-concatenation)."
+      ],
+      "metadata": {
+        "id": "NzQPHrBpukgt"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Add or subtract two or more integers"
+      ],
+      "metadata": {
+        "id": "TsQ9Pqbzu7Xu"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Add or subtract two or more fp"
+      ],
+      "metadata": {
+        "id": "8x-qt1Qwu_SA"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Add or subtract integers to fp"
+      ],
+      "metadata": {
+        "id": "wKzo-G3IvHgp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Join two strings together"
+      ],
+      "metadata": {
+        "id": "xlm6L134vLqB"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# (OPTIONAL) Add strings to integers or fp"
+      ],
+      "metadata": {
+        "id": "9Upix5x_vJvQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Stepping Variables\n",
+        "\n",
+        "Sometimes you might want to increment, decrement or do some quick arithmetic to the numbers themselves. This is quite easy as python uses standard mathemical symbols that we already use: `+` for addition, `-` for subtraction, `/` for division, `*` for multiplication, and finally `**` for indices."
+      ],
+      "metadata": {
+        "id": "MSQPQWaTvc5u"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Addition\n",
+        "\n",
+        "#Lets define some variable a = 2 and add 1 to it. This is referred to as incrementing.\n",
+        "a = 2\n",
+        "a = a+1\n",
+        "print(a)"
+      ],
+      "metadata": {
+        "id": "OclTS44z8l82"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Another way of doing what we did above is:\n",
+        "a = 2\n",
+        "a += 1\n",
+        "print (a)"
+      ],
+      "metadata": {
+        "id": "r51PpYca9Atw"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# same rules work for all the other operators\n",
+        "b = 10\n",
+        "b -= 1  # same as saying b = b - 1\n",
+        "print(b)\n",
+        "\n",
+        "c = 4\n",
+        "c *= 2 # same as saying c = c * 2\n",
+        "print(c)"
+      ],
+      "metadata": {
+        "id": "hM6HTSx69NEZ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Indices or Powers\n",
+        "x = 4\n",
+        "y = 2\n",
+        "\n",
+        "print(x**y) # Did I forget to mention we can do operations directly within the print function?"
+      ],
+      "metadata": {
+        "id": "8H5TL-r79mDG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Did you realize we were also overriding the variables we previously created? When you define a variable, it creates an instance in memory of that value. When you change the value of that variable, you have mutated it. This is the concept of mutability. Most variables (and objects as we'll learn about later) are mutable during runtime (while the code is already running). However there are a few exceptions to this, one of which we will meet in the next section."
+      ],
+      "metadata": {
+        "id": "xeEpb_Hm-N9O"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### More Operations\n",
+        "\n",
+        "- `A // B` divides A with B and then floors the value to an integer (rounded down).  \n",
+        "- `A % B` is Python's [Modulo Operator](https://www.freecodecamp.org/news/the-python-modulo-operator-what-does-the-symbol-mean-in-python-solved/) which performs a division of A with B, but ignores any remainder."
+      ],
+      "metadata": {
+        "id": "57xoP9jSjeVI"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(121//4) # Testing the floor divider"
+      ],
+      "metadata": {
+        "id": "3lZ17M22ksH8"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(99%2) # Testing the modulus"
+      ],
+      "metadata": {
+        "id": "hX7r-BBfkx9Y"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# (OPTIONAL) Try using modulus to find out if a number is even"
+      ],
+      "metadata": {
+        "id": "4-LpeG3uk-qZ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Collections\n",
+        "\n",
+        "Collections, or Arrays as they are called are groups of variables. Sometimes you may need to store multiple items which serve a specific purpose, a collection is a great way to achieve that.\n",
+        "\n",
+        "Python has FOUR (4) basic types of collections. There are some more advanced ones but we won't explore those here."
+      ],
+      "metadata": {
+        "id": "dHVJdg7Ga1D3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Lists\n",
+        "      - Ordered: at no time will any value move positions on its own.\n",
+        "      - Mutable: values can be changed, added, removed.\n",
+        "      - Indexed: the first item is located at position 0, second at position 1.\n",
+        "      - Allows duplicates: a list can contain multiples of the same value.\n",
+        "      - Denoted by square brackets: []\n",
+        "\n",
+        "      Example:\n",
+        "      fruits = ['apples', 'grapes', 'oranges', 'grapes']"
+      ],
+      "metadata": {
+        "id": "6W2V8u1kPPbT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try creating a list"
+      ],
+      "metadata": {
+        "id": "yrIwkKipPXV0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Tuples\n",
+        "      - Ordered\n",
+        "      - Immutable: the array cannot be changed once declared.\n",
+        "      - Unindexed\n",
+        "      - Allows duplicates\n",
+        "      - Denoted by rounded brackets: ()\n",
+        "\n",
+        "      Example:\n",
+        "      student_first_names = ('Bob', 'Stacy', 'Phillip', 'Stacy')"
+      ],
+      "metadata": {
+        "id": "DfTgwsJWPbqa"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try creating a tuple"
+      ],
+      "metadata": {
+        "id": "52mr7Y9JPb1i"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Sets\n",
+        "      - Unordered\n",
+        "      - Partially Immutable: elements cannot be appended, but you can add/remove elements.\n",
+        "      - Indexed\n",
+        "      - No duplicates\n",
+        "      - Denoted by curly brackets: {}\n",
+        "\n",
+        "      Example:\n",
+        "      vacation_spots = {'Barbados', 'Jamaica', 'Cuba'}"
+      ],
+      "metadata": {
+        "id": "WiiTr5hhPmuT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try creating a set\n"
+      ],
+      "metadata": {
+        "id": "wVNfoMrJPnJp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "### Dictionaries\n",
+        "      - Ordered: as of Python 3.7, but it was previously unordered!\n",
+        "      - Mutable\n",
+        "      - Indexed\n",
+        "      - Have key:value pairs, but keys cannot be duplicated!\n",
+        "      - Denoted by curly brackets: {}\n",
+        "\n",
+        "      Example:\n",
+        "      user_profile = { 'name: 'Timothy', 'address' : 'Main Street', 'age': 21}\n"
+      ],
+      "metadata": {
+        "id": "zzbM2SA8Pv9K"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try creating a dictionary"
+      ],
+      "metadata": {
+        "id": "XfnWC6-ZPxAn"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Accessing an Element\n",
+        "`collection_name[position]`\n",
+        "\n",
+        "Where position is an integer within the [] square brackets.\n",
+        "\n",
+        "<b><u>IMPORTANT</u>: Remember that collections start from 0</b>"
+      ],
+      "metadata": {
+        "id": "SWkr5kX5NygS"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try accessing an element of each of the collections you defined before"
+      ],
+      "metadata": {
+        "id": "h7SCYkd_QQGD"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Append an Element\n",
+        "\n",
+        "To append an element within a mutable collection, you can simply assign a value to the position of that element.\n",
+        "\n",
+        "`mutable_collection[position_index] = new_value`\n",
+        "\n",
+        "or use a built in method (more on this later) called 'append'.\n",
+        "\n",
+        "`mutable_collection.append()`\n",
+        "\n",
+        "For example, remember the list of fruits we declared before? I'll remind you:\n",
+        "\n",
+        "```\n",
+        "fruits = ['apples', 'grapes', 'oranges', 'grapes']\n",
+        "```\n",
+        "\n",
+        "Since index = 3 returns grapes (remember, the first element always starts at index = 0), we can assign a value to this by using:\n",
+        "\n",
+        "```\n",
+        "fruits[3] = 'bananas'\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "AWi9Yf4cNONX"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try appending a mutable collection you created before\n",
+        "\n",
+        "# Try appending an immutable collection you created for fun!"
+      ],
+      "metadata": {
+        "id": "9WgWLS1ChKB3"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Delete an Element\n",
+        "\n",
+        "To delete an element from a collection, use the following code:\n",
+        "\n",
+        "```\n",
+        "collection_name.remove(integer_value)\n",
+        "```\n",
+        "\n",
+        "where the collection_name may correspond to any list, and the integer_value is some int value corresponding to the specific value.\n",
+        "\n",
+        "**RECALL**: the first position is *ALWAYS* 0, and so forth.\n",
+        "\n",
+        "**SHORTCUT**: you can always use *negative integer values* to count from the tail end of the list!"
+      ],
+      "metadata": {
+        "id": "ffckSDHTTY36"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try deleting the last element from the list of fruits above!"
+      ],
+      "metadata": {
+        "id": "C93ImCmlh3oY"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Conditionals\n",
+        "\n",
+        "Conditionals are boolean-based functions which require some statement to be evaluated. A simpler way of stating that is that it checks if something is TRUE or FALSE and depending on that condition, does some action."
+      ],
+      "metadata": {
+        "id": "ezhvPPl3iyk9"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### IF-ELIF-ELSE\n",
+        "\n",
+        "`IF` statements are used to establish the condition. A real world example is:\n",
+        "`If I am hungry, I will order food`. Similarly, Python conditionals are stated in a very human-readable way.\n",
+        "\n",
+        "```\n",
+        "if hungry == True:\n",
+        "    print(\"I am going to get food!\")\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "ZilbDGwBjsGG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hungry = True # Created a boolean value, try changing this to False\n",
+        "\n",
+        "if hungry == True:\n",
+        "  print(\"I am going to get food!\")"
+      ],
+      "metadata": {
+        "id": "0fIpm9kqTrQj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "In the code above, we only did something when one of the conditions turned out to be true. We might also want to do something else when the other result happens as well.\n",
+        "\n",
+        "This is where the `else` statement comes in.\n",
+        "\n",
+        "```\n",
+        "if hungry == True:\n",
+        "    print('I am going to get food!')\n",
+        "else:\n",
+        "    print('I already ate!'\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "WNhQcRJ5mC-D"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try implementing your own IF-ELSE version here"
+      ],
+      "metadata": {
+        "id": "v4voGKAZms_v"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "In some cases there may be other conditional states besides the boolean ones, like ranges of numbers or some matching string value. In that case we'll add the `ELIF` statement, similarly to the first `IF` statement.\n",
+        "\n",
+        "```\n",
+        "if student == 'ENROLLED':\n",
+        "    print(\"Welcome to University!\")\n",
+        "elif student == 'PROCESSING':\n",
+        "    print(\"We're processing your application. Thank you for applying!\")\n",
+        "else:\n",
+        "    print(\"We're still waiting on some of your documents.\")\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "5AKpP_4Om0Bp"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create an IF-ELIF-ELSE of your own"
+      ],
+      "metadata": {
+        "id": "N7klt2RInxmR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "There are various other operators you can check within your conditions, besides the `==` sign. The table below will describe some of them:\n",
+        "\n",
+        "| Operator | Description |\n",
+        "|----------|-------------|\n",
+        "|A == B| Check if A is equal to B |\n",
+        "|A != B| Checks if A is NOT EQUAL to B|\n",
+        "|A > B| Checks if A is greater than B |\n",
+        "|A >= B| Checks if A is greater than or equal to B |\n",
+        "|A < B| Checks if A is less than B |\n",
+        "|A <= B| Checks if A is less than or equal to B |"
+      ],
+      "metadata": {
+        "id": "fWIPEkpspaDd"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "You can also embed multiple conditionals within other conditionals - but keep in mind, whilst this may be fine for small quantities of tests (tests being what we've been doing in the console so far), for real applications you would NOT want to nest too many conditionals as it is quite processing intensive!\n",
+        "\n",
+        "If you wanted to learn more about processing efficiencies and algorithms, you can [check out this resource](https://www.freecodecamp.org/news/big-o-notation-why-it-matters-and-why-it-doesnt-1674cfa8a23c/). Keep in mind, its not necessary for this course - but if you do end up doing programming as part of your job, it should be something you at least have an idea of."
+      ],
+      "metadata": {
+        "id": "w5z8pKqcn2UG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# (OPTIONAL) Try testing out some of the other conditionals from the table above.\n",
+        "\n",
+        "students = [\"Matthew\", \"Camille\", \"Yuri\", \"Amy\"]\n",
+        "\n",
+        "name = \"Yuri\"\n",
+        "\n",
+        "if name == students[0]:\n",
+        "  print(\"Found \" + name)\n",
+        "else:\n",
+        "  print(\"This isn't \" + name)"
+      ],
+      "metadata": {
+        "id": "P4m2lMXYtIor"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Loops\n",
+        "\n",
+        "Loops are a way of repeated executing some block of code. In Python (and most languages), there are 2 primitive types of loops: the FOR loop and the WHILE loop.\n",
+        "\n",
+        "In the previous codespace, I showed you something that is actually unique to Python (many languages have started adopting it because of its convenience). The `in` statement is a bit of a shortcut to check if something is inside of a collection and it uses its own way of looping through the collection."
+      ],
+      "metadata": {
+        "id": "xYhQNgBvuLef"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### For Loops\n",
+        "\n",
+        "For loops allow you to iterate over a sequence, or as we've been calling them, a collection.\n",
+        "\n",
+        "`REMINDER: lists, tuples, sets, dictionaries`\n",
+        "\n",
+        "You can also iterate over the characters in a String since it is in a sense a sequence of unicode characters!\n",
+        "\n",
+        "```\n",
+        "for <variable> in <sequence>:\n",
+        "   do something\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "qLLh5A4yvWSG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# loop through a string\n",
+        "for character in \"Mercury\":\n",
+        "  print(character) # prints each character to the console on a new line"
+      ],
+      "metadata": {
+        "id": "J7fJSfSixVx2"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# loop through a list of planets\n",
+        "planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']\n",
+        "for planet in planets:\n",
+        "    print(planet, end=' ') # print all on same line"
+      ],
+      "metadata": {
+        "id": "G3R27ENovgVR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Breaks\n",
+        "\n",
+        "Sometimes you may end up creating a loop and find yourself stuck in it. `Breaks` are a convenient keyword we can place within conditionals and/or a loop to break out of it.\n",
+        "\n",
+        "Take the previous example again, what if we were only looking for a particular planet? Would we have to print through all of the values to know it was there?"
+      ],
+      "metadata": {
+        "id": "RYjwpp-szuy0"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# loop through a list of planets\n",
+        "planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']\n",
+        "planet = \"Saturn\"\n",
+        "for planet in planets:\n",
+        "    print(planet)\n",
+        "    if planet == \"earth\":\n",
+        "      break\n",
+        "\n",
+        "### Do you think this would work? If not, find the issue!"
+      ],
+      "metadata": {
+        "id": "WtMGR4-t0Rs6"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Continue\n",
+        "\n",
+        "The continue statement allows us to stop the current iteration of the loop, and continue on to the next value, if possible.\n",
+        "\n",
+        "`Note: this is valuable for instances where an error may arise and end up crashing the entire program, continue helps us to just ignore it!`"
+      ],
+      "metadata": {
+        "id": "-5l5oRe_0oUj"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# loop through a list of planets\n",
+        "planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']\n",
+        "planet = \"Saturn\"\n",
+        "for planet in planets:\n",
+        "    if planet == \"Earth\":\n",
+        "      continue\n",
+        "    print(planet)\n",
+        "    if planet == \"Jupiter\":\n",
+        "      break"
+      ],
+      "metadata": {
+        "id": "NKbNeWB73UrQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Range()\n",
+        "\n",
+        "Range allows us to loop through a defined range, starting from 0 and in increments of 1 (unless otherwise stated) until it reaches the defined number.\n",
+        "\n",
+        "`NOTE: range(6) does NOT mean 0 to 6 but rather 0 to 5!`\n",
+        "\n",
+        "To use this we can use the following syntax:\n",
+        "\n",
+        "```\n",
+        "range(value)       -> gives us 0...value in increments of 1 but not inclusive of the value\n",
+        "\n",
+        "range(start, stop) -> gives start...stop in increments of 1 but not inclusive of the stop value\n",
+        "\n",
+        "range(start, stop, increment) -> same as before but changes the increment\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "FpRDYLbO3v7x"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# print out the values in a range\n",
+        "\n",
+        "for x in range(6):\n",
+        "  print(x)"
+      ],
+      "metadata": {
+        "id": "ksBL4T8T45KA"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# print out the values in a range with start and stop values\n",
+        "\n",
+        "for x in range(6, 10):\n",
+        "  print(x)"
+      ],
+      "metadata": {
+        "id": "8BZgjEe75AcG"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# print out the range with a different increment\n",
+        "\n",
+        "for x in range(2,14,3):\n",
+        "  print(x)"
+      ],
+      "metadata": {
+        "id": "2fwq37nl5Jw0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Pass\n",
+        "\n",
+        "A For Loop under any circumstance cannot be empty. But if you do create one that has no content, you can use the `pass` statement to tell the interpreter that it does nothing!"
+      ],
+      "metadata": {
+        "id": "O1U6ThGD6Xn_"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for x in range(10):\n",
+        "  pass"
+      ],
+      "metadata": {
+        "id": "9MMS8H4t6o-K"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### For Else\n",
+        "\n",
+        "Else is similar to the conditionals section we spoke about before. Else specifies a block of code to be run when the loop has completed.\n",
+        "\n",
+        "```\n",
+        "for x in range():\n",
+        "  do something\n",
+        "else:\n",
+        "  do something to finish\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "Go6rje785l6R"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for x in range(11):\n",
+        "  print(x)\n",
+        "else:\n",
+        "  print(\"All done\")"
+      ],
+      "metadata": {
+        "id": "lcFOCFTn6Euq"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### While Loops\n",
+        "\n",
+        "While loops are statements with a boolean-type conditional, and will only execute when that statement is True.\n",
+        "\n",
+        "```\n",
+        "while condition\n",
+        "  do something\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "8gjeiCgc604M"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "i = 0\n",
+        "while i < 6:\n",
+        "  print(i)\n",
+        "  i += 1"
+      ],
+      "metadata": {
+        "id": "Tep8K77Q7RaM"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Similarly to the For loop, we can use the Break, Continue, and Pass statements in the same way. In fact, we can use them virtually anywhere there is some behavior we want to change."
+      ],
+      "metadata": {
+        "id": "vSCufdyI7eVh"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Try creating your own While Loops here"
+      ],
+      "metadata": {
+        "id": "UmI0Pr4VP5lz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Exercise\n",
+        "\n",
+        "  - [ ] Create a list of your classmates with your name somewhere in between.\n",
+        "  - [ ] Iterate through the list and print each name in the same line\n",
+        "  - [ ] Check to see if the first letter of their names starts with a particular letter. eg. A, M, N, S are all very common first letters.\n",
+        "  - [ ] If any of their first names start and end with the same letter, skip that name.\n",
+        "\n",
+        "This should provide a reasonable amount of difficulty for you to test your acquired skills up until now!\n"
+      ],
+      "metadata": {
+        "id": "Khxx2kHZP_2C"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# create a list of students in your classroom:\n",
+        "students = []\n",
+        "\n",
+        "# create the iterable below\n"
+      ],
+      "metadata": {
+        "id": "_U7iZKoUP-7x"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Functions\n",
+        "\n",
+        "Functions are a big step up from what we accomplished so far. It takes repeatable blocks of code and refactors it into its own type of object or variable.\n",
+        "\n",
+        "To create a function, use the following syntax:\n",
+        "\n",
+        "```\n",
+        "def my_function():\n",
+        "  do something\n",
+        "```"
+      ],
+      "metadata": {
+        "id": "J-x_MYNBRw61"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def hello_world():\n",
+        "  print(\"Hello World!\")"
+      ],
+      "metadata": {
+        "id": "tGg7czSUSKV9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Oh but the function above isn't printing \"Hello World\" - what gives?\n",
+        "\n",
+        "Well while we did create the function, we didn't use it! To use the function, simply call its name:"
+      ],
+      "metadata": {
+        "id": "3Hb7MfShShIC"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hello_world() # the () brackets means its a function, try removing them to see what happens!"
+      ],
+      "metadata": {
+        "id": "qZ62MoSxSvap"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Next we'll actually look at a more in depth function:"
+      ],
+      "metadata": {
+        "id": "mpxWCoJYTRie"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def sumOfTwo(a, b) -> int:\n",
+        "  return a + b\n",
+        "\n",
+        "print(sumOfTwo(11, 3))\n",
+        "\n",
+        "# If you dont understand what happend in the previous line, I'll break it up:\n",
+        "x = 11\n",
+        "y = 3\n",
+        "value = sumOfTwo(x, y)\n",
+        "print(value)"
+      ],
+      "metadata": {
+        "id": "w4MFGU3PTXH_"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "The function `sumOfTwo()` has two arguments or parameters `a and b` that it looks for within the brackets. Whilst the next part is not necessary, I have opted to tell the function to ONLY return a value that is of type `INTEGER`. Finally, the `return` keyword is similar to `continue` or `break` in that it is what the function returns to the rest of the program.\n",
+        "\n",
+        "`Remember: the block of code inside the function runs for ITSELF, anything outside of it won't be able to access any variables within it unless they are returned.`\n",
+        "\n",
+        "This introduces the concept of [GLOBAL and LOCAL variables](https://www.techgeekbuzz.com/blog/global-vs-local-variables/).\n",
+        "\n",
+        "A `local variable` is any variable that belongs to a local group of code or a function block. Some languages may refer to them as `PRIVATE` variables.\n",
+        "\n",
+        "A `global variable` is some variable that is defined at the root or outside of any sub-group of code but can be accessed anywhere within the program. This may also be referred to as `PUBLIC` variables.\n",
+        "\n",
+        "This concept of availability of variables is known as `SCOPE`."
+      ],
+      "metadata": {
+        "id": "N6HBmrmaUFu3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### ARGS & KWARGS\n",
+        "\n",
+        "Sometimes you may not know the type of variables or the number of variables you intent to pass to a function. Python provides syntax for this as well.\n",
+        "\n",
+        "```\n",
+        "def my_func(*args, **kwargs)\n",
+        "  do something\n",
+        "```\n",
+        "\n",
+        "- `*args` allows the function to take multiple positional arguments\n",
+        "- `**kwargs` allows the function to take multople named-arguments\n",
+        "- `*` a single asterisk is used to unpack iterables\n",
+        "- `**` double asterisks are used to unpack dictionaries\n",
+        "\n",
+        "Note that you are not required to use the words `args` or `kwargs` but rather their asterisks. However, it is a convention to use them since it makes reading code much more consistent for many programmers."
+      ],
+      "metadata": {
+        "id": "QJN0-nY3WKGq"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# find the total of all the scores\n",
+        "def total_scores(*args):\n",
+        "  total = 0\n",
+        "  for x in args:\n",
+        "    total += x\n",
+        "  return total\n",
+        "\n",
+        "# pass integers into the function\n",
+        "total_scores(1, 33, 12)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "iocx9-gkXxjs",
+        "outputId": "d2d1c02f-6711-491c-a3c2-34293add22cb"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "46"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 45
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# concatenate some strings into a sentence\n",
+        "def concatenate(**kwargs):\n",
+        "    result = \"\"\n",
+        "    for arg in kwargs.values():  # What happens if we remove the values term from kwargs?\n",
+        "        result += arg\n",
+        "    return result\n",
+        "\n",
+        "print(concatenate(a=\"This\", b=\"Is\", c=\"A\", d=\"Concat\", e=\"Sentence\"))"
+      ],
+      "metadata": {
+        "id": "cFdLe2P-bN5N"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Pass\n",
+        "\n",
+        "Similar to using the `pass` keyword in loops, if we dont want a function to do anything, we can use this."
+      ],
+      "metadata": {
+        "id": "fkNSWrAZcOwv"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def pointless_function():\n",
+        "  pass"
+      ],
+      "metadata": {
+        "id": "t3a5fmrscaJ5"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "If you want to learn more about functions, here are some valuable resources that may help you:\n",
+        "\n",
+        "- [W3 Schools](https://www.w3schools.com/python/python_functions.asp)\n",
+        "- [GeeksForGeeks](https://www.geeksforgeeks.org/python-functions/)\n",
+        "- [FreeCodeCamp](https://www.freecodecamp.org/news/python-functions-define-and-call-a-function/)\n"
+      ],
+      "metadata": {
+        "id": "QEuS7d64cmi4"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Lambda\n",
+        "\n",
+        "Lambdas, also referred to as Anonymous Functions are short lived functions that aren't given a name. In fact they don't share the same `def myFunction()` syntax.\n",
+        "\n",
+        "Lambdas are single-expression functions which typically do a really specific task. They may have any number of arguments but can only return a single value after being run.\n",
+        "\n",
+        "Let's look at an example of a regular function below first:"
+      ],
+      "metadata": {
+        "id": "YbePOaEQgsdY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def even_numbers(nums):\n",
+        "    even_list = []\n",
+        "    for n in nums:\n",
+        "        if n % 2 == 0:\n",
+        "            even_list.append(n)\n",
+        "    return even_list\n",
+        "\n",
+        "num_list = [10, 5, 12, 78, 6, 1, 7, 9]\n",
+        "ans = even_numbers(num_list)\n",
+        "print(\"Even numbers are:\", ans)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "n1UQk4R_hWyh",
+        "outputId": "f1ed98e9-0339-4239-81c1-1d167fa79643"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Even numbers are: [10, 12, 78, 6]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Lambda equivalent\n",
+        "\n",
+        "l = [10, 5, 12, 78, 6, 1, 7, 9]\n",
+        "even_nos = list(filter(lambda x: x % 2 == 0, l))\n",
+        "print(\"Even numbers are: \", even_nos)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yGCF0eE5heUi",
+        "outputId": "3016bca0-ebb8-4ed8-faa7-c8f0b23e67d6"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Even numbers are:  [10, 12, 78, 6]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Don't worry too much about the lambda function I created above, those new keywords will eventually become obvious."
+      ],
+      "metadata": {
+        "id": "TKhP2wYzhvHA"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Filter()\n",
+        "\n",
+        "Python has a built-in function called `filter()` which is used to return a value that meets some condition. It uses the syntax:\n",
+        "\n",
+        "```\n",
+        "filter(function, sequence)\n",
+        "```\n",
+        "\n",
+        "where the function does the condition checking and the sequence is the list, tuple or string you want to evaluate.\n",
+        "\n",
+        "Let's take a look at our lambda function again:\n",
+        "\n",
+        "`even_nos = list(filter(lambda x: x % 2 == 0, l))`\n",
+        "\n",
+        "Our function in this case was the lambda function which took in a value of x which was obtained from the sequence l, then did a modulus operation (checked to see if it was divisible by 2 without leaving a remainder)."
+      ],
+      "metadata": {
+        "id": "Q7v4KN2qh9IZ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Map()\n",
+        "\n",
+        "`map()` applies some function to a sequence and returns a new series.\n",
+        "\n",
+        "The syntax is as follows:\n",
+        "```\n",
+        "map(function, sequence)\n",
+        "```\n"
+      ],
+      "metadata": {
+        "id": "doa4kYmg10hN"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "a_list = [1, 13, 11, 5]\n",
+        "\n",
+        "# takes each value and applies the function x to the power of 5\n",
+        "mapped_list = list(map(lambda x: x**5, a_list))\n",
+        "\n",
+        "print(mapped_list)"
+      ],
+      "metadata": {
+        "id": "YdyyJyN62WoS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "`map()` is especially handy if you wanted to normalize some values. In Arduino/Embedded C++, we often need to normalize analog values to some range between 0 to 255 (if we're looking at an 8-bit resolution), or for a robotics application, we may want to apply an offset to every value to prevent the robot from crossing some boundary space."
+      ],
+      "metadata": {
+        "id": "CEXBLPO03OxQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Application Structure\n",
+        "\n",
+        "Python applications usually look similar to the code in the space below:"
+      ],
+      "metadata": {
+        "id": "1KwNk9Kj6SQc"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import os\n",
+        "import numpy as np\n",
+        "import math\n",
+        "from keras import Sequential\n",
+        "\n",
+        "def palindrome_check(s):\n",
+        "  '''\n",
+        "  This function checks if a string is a palindrome.\n",
+        "  A palindrome is any sequence that is the same either forward or backward.\n",
+        "  '''\n",
+        "  pal = s[::-1] # This is a shorthand version of doing interations\n",
+        "  if pal == s:\n",
+        "    return f\"{s} is a Palindrome\"\n",
+        "  else:\n",
+        "    return f\"{s} is NOT a Palindrome\"\n",
+        "\n",
+        "def factorial(num):\n",
+        "  '''\n",
+        "  This function returns the factorial of a number.\n",
+        "  The formula for factorial is the product of every integer from 1 to the number itself.\n",
+        "  ie. 4! -> 4 * 3 * 2 * 1\n",
+        "  '''\n",
+        "  return math.factorial(num) # Here we are using the math module we imported above\n",
+        "\n",
+        "\n",
+        "print(palindrome_check(\"15151\"))\n",
+        "print(palindrome_check(\"madam\"))\n",
+        "\n",
+        "four_fact = factorial(4)\n",
+        "print(f\"4! = {four_fact}\")\n",
+        "\n",
+        "\n",
+        "# IF NAME == MAIN is a staple code in many python programs which helps the\n",
+        "# interpreter determine which source file is being imported versus which\n",
+        "# is being executed. The code below is unique to this program, but will be a bit\n",
+        "# different for other programs.\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "  print(\"This was executed directly\")\n",
+        "else:\n",
+        "  print(\"This was executed as an import\")"
+      ],
+      "metadata": {
+        "id": "du2SaYPt6lF6"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Bonus Topics\n",
+        "\n",
+        "This should cover everything you need to get started with Python at an introductory level. However, there are many beginner topics I did not include due to their immediate application in this course. That being said, I am creating a list of resources below if you wish to further your knowledge a bit - I highly recommend that you do.\n",
+        "\n",
+        "- [List Comprehensions](https://www.w3schools.com/python/python_lists_comprehension.asp): a shorter way to create a new list from an existing list based on some function. They're much faster than creating a `for loop`.\n",
+        "\n",
+        "- [Classes](https://www.w3schools.com/python/python_classes.asp): Classes are a staple of Object Oriented Programming or OOP. Python treats everything as an Object, with its own properties and methods.\n",
+        "\n",
+        "- [Inheritance](https://www.w3schools.com/python/python_inheritance.asp): this is related to OOP and classes. For example, you may have a class called Animal, and many subclasses which all inherit the properties of Animal but have unique attributes to their new classes eg Dog, Cat, Bird etc.\n",
+        "\n",
+        "- [Try-Except-Blocks](https://www.w3schools.com/python/python_try_except.asp): these are blocks of codes that provide error handling. Imagine you have a navigation application that looks for angles to turn, but instead you tell it \"North\". How would it handle that?\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "M8InfYpb_9mq"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Bonus code space if you decide to test any of the above topics"
+      ],
+      "metadata": {
+        "id": "ZCEtfeDUEjco"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
